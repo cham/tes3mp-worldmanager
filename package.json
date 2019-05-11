@@ -14,7 +14,8 @@
   "author": "Dan Neame",
   "license": "ISC",
   "dependencies": {
-    "express": "4.16.4"
+    "express": "4.16.4",
+    "shelljs": "0.8.3"
   },
   "devDependencies": {
     "eslint": "5.16.0",

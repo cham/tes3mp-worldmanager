@@ -4,3 +4,6 @@ export TES3_DATA_DIRNAME=data
 export WORLD_DIR=worlds
 export BACKUP_DIR=backups
 export TES3_API_SERVER_PORT=3030
+export CURRENT_WORLD_FILE=current-world.json
+export SAVE_WORLD_SCRIPT=save-world.sh
+export RESTORE_WORLD_SCRIPT=restore-world.sh

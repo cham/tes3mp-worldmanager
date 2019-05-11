@@ -22,5 +22,10 @@ router.post('/switch/:worldname', (req, res) => {
     .then(data => res.send(data))
     .catch(e => res.status(500).send({ message: e.message }))
 })
+router.post('/:worldname', (req, res) => {
+  worldsApi.createWorld(req.params.worldname)
+    .then(data => res.send(data))
+    .catch(e => res.status(500).send({ message: e.message }))
+})
 
 module.exports = router

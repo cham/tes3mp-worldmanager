@@ -32,7 +32,17 @@ const getCurrentWorld = () => new Promise((resolve, reject) => {
   })
 })
 
-const saveWorld = (name) => new Promise(function (resolve, reject) {
+const writeCurrentWorld = name => new Promise(function (resolve, reject) {
+  const data = JSON.stringify({ name })
+  fs.writeFile(path.join(__dirname, '../', config.get('CURRENT_WORLD_FILE')), data, (err) => {
+    if (err) {
+      return reject(err)
+    }
+    resolve()
+  })
+})
+
+const saveWorld = name => new Promise(function (resolve, reject) {
   exec(`./${config.get('SAVE_WORLD_SCRIPT')} ${name}`, function (code, stdout, stderr) {
     if (code > 0) {
       return reject(new Error(stderr || stdout))
@@ -41,7 +51,7 @@ const saveWorld = (name) => new Promise(function (resolve, reject) {
   })
 })
 
-const restoreWorld = (name) => new Promise(function (resolve, reject) {
+const restoreWorld = name => new Promise(function (resolve, reject) {
   exec(`./${config.get('RESTORE_WORLD_SCRIPT')} ${name}`, function (code, stdout, stderr) {
     if (code > 0) {
       return reject(new Error(stderr || stdout))
@@ -50,7 +60,7 @@ const restoreWorld = (name) => new Promise(function (resolve, reject) {
   })
 })
 
-const switchWorld = (toWorldName) => new Promise((resolve, reject) => {
+const switchWorld = toWorldName => new Promise((resolve, reject) => {
   getCurrentWorld()
     .then((currentWorld) => {
       if (!currentWorld.name) {
@@ -59,10 +69,20 @@ const switchWorld = (toWorldName) => new Promise((resolve, reject) => {
       return saveWorld(currentWorld.name)
     })
     .then(() => restoreWorld(toWorldName))
+    .then(() => writeCurrentWorld(toWorldName))
+    .then(resolve)
+    .catch(reject)
+})
+
+const createWorld = name => new Promise((resolve, reject) => {
+  // needs a 'reset world' bash script
+  saveWorld(name)
+    .then(() => writeCurrentWorld(name))
     .then(resolve)
     .catch(reject)
 })
 
 exports.getWorlds = getWorlds
 exports.getCurrentWorld = getCurrentWorld
+exports.createWorld = createWorld
 exports.switchWorld = switchWorld

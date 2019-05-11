@@ -1,5 +1,6 @@
 const settings = {
-  TES3_API_SERVER_PORT: process.env.TES3_API_SERVER_PORT
+  TES3_API_SERVER_PORT: process.env.TES3_API_SERVER_PORT,
+  WORLD_DIR: process.env.WORLD_DIR
 }
 
 const checkSettings = () => Object.keys(settings).forEach((key) => {

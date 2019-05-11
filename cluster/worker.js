@@ -11,6 +11,8 @@ app.use(bodyParser.urlencoded({
   limit: '50mb'
 }))
 
+app.use('/v1/worlds', require('../routes/worlds'))
+
 app.listen(port, () => {
   console.log(`Worker listening on port ${port}`)
 })

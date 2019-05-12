@@ -3,7 +3,8 @@ const settings = {
   WORLD_DIR: process.env.WORLD_DIR,
   CURRENT_WORLD_FILE: process.env.CURRENT_WORLD_FILE,
   SAVE_WORLD_SCRIPT: process.env.SAVE_WORLD_SCRIPT,
-  RESTORE_WORLD_SCRIPT: process.env.RESTORE_WORLD_SCRIPT
+  RESTORE_WORLD_SCRIPT: process.env.RESTORE_WORLD_SCRIPT,
+  WIPE_WORLD_SCRIPT: process.env.WIPE_WORLD_SCRIPT
 }
 
 const checkSettings = () => Object.keys(settings).forEach((key) => {

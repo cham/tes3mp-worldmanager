@@ -8,3 +8,4 @@ export TES3_API_SERVER_PORT=3030
 export CURRENT_WORLD_FILE=current-world.json
 export SAVE_WORLD_SCRIPT=save-world.sh
 export RESTORE_WORLD_SCRIPT=restore-world.sh
+export WIPE_WORLD_SCRIPT=wipe-world.sh

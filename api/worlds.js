@@ -60,6 +60,15 @@ const restoreWorld = name => new Promise(function (resolve, reject) {
   })
 })
 
+const resetWorld = () => new Promise((resolve, reject) => {
+  exec(`./${config.get('WIPE_WORLD_SCRIPT')}`, function (code, stdout, stderr) {
+    if (code > 0) {
+      return reject(new Error(stderr || stdout))
+    }
+    resolve(stdout)
+  })
+})
+
 const switchWorld = toWorldName => new Promise((resolve, reject) => {
   getCurrentWorld()
     .then((currentWorld) => {
@@ -75,8 +84,8 @@ const switchWorld = toWorldName => new Promise((resolve, reject) => {
 })
 
 const createWorld = name => new Promise((resolve, reject) => {
-  // needs a 'reset world' bash script
-  saveWorld(name)
+  resetWorld()
+    .then(() => saveWorld(name))
     .then(() => writeCurrentWorld(name))
     .then(resolve)
     .catch(reject)

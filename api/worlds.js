@@ -28,7 +28,10 @@ const getCurrentWorld = () => new Promise((resolve, reject) => {
     } catch (e) {
       return reject(e)
     }
-    resolve(currentWorld)
+    if (!currentWorld.name) {
+      return reject(new Error('There is no current world'))
+    }
+    resolve(currentWorld.name)
   })
 })
 
@@ -71,12 +74,7 @@ const resetWorld = () => new Promise((resolve, reject) => {
 
 const switchWorld = toWorldName => new Promise((resolve, reject) => {
   getCurrentWorld()
-    .then((currentWorld) => {
-      if (!currentWorld.name) {
-        throw new Error('There is no current world')
-      }
-      return saveWorld(currentWorld.name)
-    })
+    .then(currentName => saveWorld(currentName))
     .then(() => restoreWorld(toWorldName))
     .then(() => writeCurrentWorld(toWorldName))
     .then(resolve)
@@ -84,7 +82,9 @@ const switchWorld = toWorldName => new Promise((resolve, reject) => {
 })
 
 const createWorld = name => new Promise((resolve, reject) => {
-  resetWorld()
+  getCurrentWorld()
+    .then(currentName => saveWorld(currentName))
+    .then(() => resetWorld())
     .then(() => saveWorld(name))
     .then(() => writeCurrentWorld(name))
     .then(resolve)

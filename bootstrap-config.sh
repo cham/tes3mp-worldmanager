@@ -32,3 +32,7 @@ if [ -z "$BACKUP_DIR" ]; then
 	exit 1
 fi
 
+if [ -z "$COMMON_DIR"]; then
+	echo "No COMMON_DIR specified in config file"
+	exit 1
+fi

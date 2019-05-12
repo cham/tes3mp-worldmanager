@@ -3,6 +3,7 @@ export TES3_CORESCRIPTS_DIR=$TES3_DIR/keepers/CoreScripts
 export TES3_DATA_DIRNAME=data
 export WORLD_DIR=worlds
 export BACKUP_DIR=backups
+export COMMON_DIR=common
 export TES3_API_SERVER_PORT=3030
 export CURRENT_WORLD_FILE=current-world.json
 export SAVE_WORLD_SCRIPT=save-world.sh
